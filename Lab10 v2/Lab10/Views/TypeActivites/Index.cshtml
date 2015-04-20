@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Lab10.Models.TypeActivite>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomActivite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaloriePerduHeure)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomActivite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaloriePerduHeure)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TypeActiviteId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TypeActiviteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TypeActiviteId })
+        </td>
+    </tr>
+}
+
+</table>

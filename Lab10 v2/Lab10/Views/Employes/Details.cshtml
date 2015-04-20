@@ -1,0 +1,50 @@
+﻿@model Lab10.Models.Employe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRecrutement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRecrutement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPrenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPrenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateNaissance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateNaissance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonneId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

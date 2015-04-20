@@ -1,0 +1,114 @@
+﻿@model Lab10.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Utilisateur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateInscription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateInscription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateDebutContrat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateDebutContrat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFinContrat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateFinContrat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Poids)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Poids)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPrenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPrenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateNaissance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateNaissance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+   <table>
+       <tr><th>Nom Activité </th><th> Date</th><th>Durée</th><th>Calorie</th> </tr>
+
+      
+
+       @{
+           if (ViewBag.UtilActi != null)
+           {
+
+
+
+
+               foreach (var item in ViewBag.UtilActi)
+               {
+
+                <tr>
+                    <td>@Model.Activites.First().TypeActivite.NomActivite</td>
+
+
+
+                    <td>@item.ActiviteId</td>
+                    <td>@item.Date</td>
+                    <td>@item.Duree</td>
+
+
+                    <td>@Model.Activites.First().TypeActivite.CaloriePerduHeure </td>
+                </tr>
+               }
+           }
+
+    }
+
+
+   </table>
+
+
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonneId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
