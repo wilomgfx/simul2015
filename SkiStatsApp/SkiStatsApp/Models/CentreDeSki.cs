@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using SkiStatsApp.Models;
 namespace SkiStatsApp.Models
 {
     public class CentreDeSki
