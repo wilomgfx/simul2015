@@ -6,7 +6,6 @@ using System.Data.Entity;
 using SkiStatsApp.Models;
 
 
-
 namespace SkiStatsApp.DAL
 {
     public class SkiStatsAppContext : DbContext
