@@ -206,5 +206,48 @@ namespace SkiStatsAppV2.DAL
             return minDate.Month.ToString("mmm") + " " + minDate.Day.ToString();
         }
 
+        public CentreDeSki FirstSkiArea(Saison Saison)
+        {
+            // retourne la premiere sortie de la saison donnée
+            Sortie premiereSortieSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.Annee).First();
+
+            //retourne le premiere centre de ski de la saison donnée
+            return premiereSortieSaison.CentreDeSki;
+
+
+        }
+
+        public string LastDaySkiingDD(Saison Saison)
+        {
+            // sort la derniere journee de ski de la saison donnée
+            Sortie derniereSortieDeLaSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+
+            // retourne le jour de la semaine en string de cette derniere date 
+            return derniereSortieDeLaSaison.Date.DayOfWeek.ToString();
+
+        }
+
+        public string LastDaySkiingMMdd(Saison Saison)
+        {
+            // sort la derniere journee de ski de la saison donnée
+            Sortie derniereSortieDeLaSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+
+            // retourne le jour de la semaine en string de cette derniere date 
+            string date = derniereSortieDeLaSaison.Date.Month.ToString("mmm") + " " + derniereSortieDeLaSaison.Date.Day.ToString("dd");
+
+            return date;
+
+        }
+
+        public CentreDeSki LastSkiArea(Saison Saison)
+        {
+            // retourne la derniere sortie de la saison donnée
+            Sortie derniereSortieSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+
+            //retourne le derniere centre de ski de la saison donnée
+            return derniereSortieSaison.CentreDeSki;
+
+
+        }
     }
 }
