@@ -10,5 +10,7 @@ namespace SkiStatsAppV2.Models
         public int SaisonId { get; set; }
 
         public DateTime Annee { get; set; }
+
+        public virtual ICollection<Sortie> Sorties { get; set; }
     }
 }
