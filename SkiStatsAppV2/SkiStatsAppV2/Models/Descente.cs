@@ -14,6 +14,8 @@ namespace SkiStatsAppV2.Models
         [Key]
         public int DescenteId { get; set; }
 
+        public int PiedVerticauxParcourus { get; set; }
+
         [ForeignKey("Sortie")]
         public int SortieId { get; set; }
         public virtual Sortie Sortie { get; set; }
