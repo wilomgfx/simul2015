@@ -132,13 +132,6 @@ namespace SkiStatsAppV2.DAL
         public int ObtenirNombreDeDescente(Saison saison)
         {
             int nombreDeDescente = 0;
-            nombreDeDescente = saison.Sorties.Select(r => r.Descentes).Count();
-            return nombreDeDescente;
-        }
-
-        public int ObtenirNombreDeDescente(Saison saison)
-        {
-            int nombreDeDescente = 0;
             foreach (Sortie sort in saison.Sorties)
             {
                 foreach (Descente desc in sort.Descentes)
