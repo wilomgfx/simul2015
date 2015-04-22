@@ -11,10 +11,10 @@ namespace SkiStatsAppV2.DAL
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        internal SkiStatsAppV2ContextDbContext context;
+        internal Lab10Context context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository(SkiStatsAppV2ContextDbContext context)
+        public GenericRepository(Lab10Context context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

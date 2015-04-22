@@ -8,7 +8,7 @@ namespace SkiStatsAppV2.DAL
 {
     public class SaisonRepository : GenericRepository<Saison>
     {
-        public SaisonRepository(SkiStatsAppV2ContextDbContext context) : base(context) { }
+        public SaisonRepository(SkiStatsAppV2ContexteDbContext context) : base(context) { }
 
         public IEnumerable<Saison> GetSaisons() { return Get(); }
 

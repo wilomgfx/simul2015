@@ -7,6 +7,5 @@ namespace SkiStatsAppV2.DAL
 {
     public class DescenteRepository
     {
-
     }
 }
