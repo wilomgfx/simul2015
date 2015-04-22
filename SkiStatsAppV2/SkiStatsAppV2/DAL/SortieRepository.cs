@@ -7,5 +7,6 @@ namespace SkiStatsAppV2.Models
 {
     public class SortieRepository
     {
+
     }
 }

@@ -7,7 +7,7 @@ namespace SkiStatsAppV2.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private SkiStatsAppV2Contexte context = new SkiStatsAppV2Contexte();
+        private SkiStatsAppV2ContextDbContext context = new SkiStatsAppV2ContextDbContext();
 
         private CentreDeSkiRepository centreDeSkiRepository;
 

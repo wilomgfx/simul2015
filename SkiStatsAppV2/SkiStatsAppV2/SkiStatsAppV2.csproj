@@ -129,8 +129,11 @@
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\RegionRepository.cs" />
+    <Compile Include="DAL\SaisonRepository.cs" />
     <Compile Include="DAL\SkiStatsAppV2DbContext.cs" />
     <Compile Include="DAL\SortieRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,7 +233,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53437</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
