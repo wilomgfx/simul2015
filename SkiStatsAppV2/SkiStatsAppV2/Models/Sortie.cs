@@ -16,7 +16,10 @@ namespace SkiStatsAppV2.Models
         public int SaisonId { get; set; }
 
         public DateTime Date { get; set; }
+
         public virtual Saison Saison { get; set; }
+
+        public string Division { get; set; }
 
         [ForeignKey("CentreDeSki")]
         public int CentreDeSkiId { get; set; }

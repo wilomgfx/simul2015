@@ -15,6 +15,7 @@ namespace SkiStatsAppV2.Models
 
         public DateTime DateFin { get; set; }
 
+
         public virtual ICollection<Sortie> Sorties { get; set; }
     }
 }
