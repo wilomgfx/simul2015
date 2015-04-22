@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SkiStatsAppV2.Models.Descente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Sortie.SortieId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sortie.SortieId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DescenteId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DescenteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DescenteId })
+        </td>
+    </tr>
+}
+
+</table>

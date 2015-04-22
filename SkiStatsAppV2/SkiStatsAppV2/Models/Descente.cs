@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace SkiStatsAppV2.Models
 {
     public class Descente
     {
+        [Key]
         public int DescenteId { get; set; }
 
         [ForeignKey("Sortie")]

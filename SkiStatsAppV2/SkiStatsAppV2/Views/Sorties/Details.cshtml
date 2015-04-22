@@ -1,0 +1,34 @@
+﻿@model SkiStatsAppV2.Models.Sortie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sortie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CentreDeSki.NomDuCentre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CentreDeSki.NomDuCentre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Saison.SaisonId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Saison.SaisonId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SortieId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

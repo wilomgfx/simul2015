@@ -1,0 +1,26 @@
+﻿@model SkiStatsAppV2.Models.Descente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Descente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sortie.SortieId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sortie.SortieId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DescenteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -39,13 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -115,8 +118,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CentreDeSkisController.cs" />
+    <Compile Include="Controllers\DescentesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAL\SkiStatsAppV2Context.cs" />
+    <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\SaisonsController.cs" />
+    <Compile Include="Controllers\SortiesController.cs" />
+    <Compile Include="DAL\SkiStatsAppV2DbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,7 +156,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -163,6 +173,31 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Sorties\Create.cshtml" />
+    <Content Include="Views\Sorties\Delete.cshtml" />
+    <Content Include="Views\Sorties\Details.cshtml" />
+    <Content Include="Views\Sorties\Edit.cshtml" />
+    <Content Include="Views\Sorties\Index.cshtml" />
+    <Content Include="Views\CentreDeSkis\Create.cshtml" />
+    <Content Include="Views\CentreDeSkis\Delete.cshtml" />
+    <Content Include="Views\CentreDeSkis\Details.cshtml" />
+    <Content Include="Views\CentreDeSkis\Edit.cshtml" />
+    <Content Include="Views\CentreDeSkis\Index.cshtml" />
+    <Content Include="Views\Descentes\Create.cshtml" />
+    <Content Include="Views\Descentes\Delete.cshtml" />
+    <Content Include="Views\Descentes\Details.cshtml" />
+    <Content Include="Views\Descentes\Edit.cshtml" />
+    <Content Include="Views\Descentes\Index.cshtml" />
+    <Content Include="Views\Regions\Create.cshtml" />
+    <Content Include="Views\Regions\Delete.cshtml" />
+    <Content Include="Views\Regions\Details.cshtml" />
+    <Content Include="Views\Regions\Edit.cshtml" />
+    <Content Include="Views\Regions\Index.cshtml" />
+    <Content Include="Views\Saisons\Create.cshtml" />
+    <Content Include="Views\Saisons\Delete.cshtml" />
+    <Content Include="Views\Saisons\Details.cshtml" />
+    <Content Include="Views\Saisons\Edit.cshtml" />
+    <Content Include="Views\Saisons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
