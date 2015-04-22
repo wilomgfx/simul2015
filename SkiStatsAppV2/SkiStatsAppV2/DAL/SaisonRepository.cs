@@ -205,5 +205,6 @@ namespace SkiStatsAppV2.DAL
 
             return minDate.Month.ToString("mmm") + " " + minDate.Day.ToString();
         }
+
     }
 }
