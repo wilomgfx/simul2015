@@ -50,7 +50,7 @@ namespace SkiStatsAppV2.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SortieId,SaisonId,CentreDeSkiId")] Sortie sortie)
+        public ActionResult Create([Bind(Include = "SortieId,SaisonId,CentreDeSkiId,Date")] Sortie sortie)
         {
             if (ModelState.IsValid)
             {

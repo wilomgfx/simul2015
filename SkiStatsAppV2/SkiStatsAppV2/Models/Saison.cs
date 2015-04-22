@@ -13,7 +13,7 @@ namespace SkiStatsAppV2.Models
 
         public DateTime Annee { get; set; }
 
-        public DateTime DateFin { get; set; }
+        public System.Nullable<DateTime> DateFin { get; set; }
 
 
         public virtual ICollection<Sortie> Sorties { get; set; }
