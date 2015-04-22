@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SkiStatsAppV2.DAL;
 using SkiStatsAppV2.Models;
+using SkiStatsAppV2.ViewModels;
 
 namespace SkiStatsAppV2.Controllers
 {
@@ -19,6 +20,42 @@ namespace SkiStatsAppV2.Controllers
         public ActionResult Index()
         {
             return View(unitOfWork.SaisonRepository.GetSaisons().ToList());
+        }
+
+        public ActionResult StatistiquesSaisonGenerale()
+        {
+            IEnumerable<Saison> saisons = unitOfWork.SaisonRepository.GetSaisons();
+            List<StatsSaisonGenerale> lst = new List<StatsSaisonGenerale>();
+
+            foreach (Saison s in saisons)
+            {
+                StatsSaisonGenerale stats = new StatsSaisonGenerale();
+
+                stats.Saison = s;
+                stats.nbrDaysSkiing = unitOfWork.SaisonRepository.ObtenirNombreDeJoursSkier(s);
+                stats.nbrDifferentSkiAreas = unitOfWork.SaisonRepository.ObtenirNombreDeDifferenteRegionsSkier(s);
+                stats.nbrNewSkiAreas = unitOfWork.SaisonRepository.ObtenirNombreDeNouvelleRegionsSkier(s);
+                stats.totalVerticalFeet = unitOfWork.SaisonRepository.ObtenirNombreDePiedsVerticaux(s);
+                stats.nbrOfRuns = unitOfWork.SaisonRepository.ObtenirNombreDeDescente(s);
+                stats.avgRunsPerDay = unitOfWork.SaisonRepository.ObtenirAverageRunsPerDay(s.SaisonId);
+                stats.avgFeetPerDay = unitOfWork.SaisonRepository.ObtenirAverageFeetPerDay(s.SaisonId);
+                stats.avgFeetPerRun = unitOfWork.SaisonRepository.ObtenirAverageFeetPerRun(s.SaisonId);
+                stats.firstDayOfSkiing = unitOfWork.SaisonRepository.ObtenirPremiereJourneeDeSki(s.SaisonId);
+                stats.firstDateOfSkiing = unitOfWork.SaisonRepository.ObtenirPremiereDateDeSki(s.SaisonId);
+                stats.firstSkiArea = unitOfWork.SaisonRepository.FirstSkiArea(s);
+                stats.lastDayOfSkiing = unitOfWork.SaisonRepository.LastDaySkiingDD(s);
+                stats.lastDateOfSkiing = unitOfWork.SaisonRepository.LastDaySkiingMMdd(s);
+                stats.lastSkiArea = unitOfWork.SaisonRepository.LastSkiArea(s);
+                stats.lengthOfSeason = unitOfWork.SaisonRepository.LougueurSaison(s);
+                stats.avgElapsedDays = unitOfWork.SaisonRepository.moyenneDesJoursEntreDeuxSorties(s);
+
+                lst.Add(stats);
+            }
+
+            CollectionDeStats col = new CollectionDeStats();
+            col.Saisons = lst;
+
+            return View(col);
         }
 
         // GET: Saisons/Details/5

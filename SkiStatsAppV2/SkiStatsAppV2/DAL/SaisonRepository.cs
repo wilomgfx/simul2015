@@ -52,34 +52,79 @@ namespace SkiStatsAppV2.DAL
         public int ObtenirNombreDeNouvelleRegionsSkier(Saison saison)
         {
             int nombreDeDifferenteRegion = 0;
-            List<Region> lstRegionDejaSkier = new List<Region>();
 
-            foreach (Region region in saison.Sorties.Select(r => r.CentreDeSki.Region))
-            {
+            IEnumerable<Saison> saisons = GetSaisons();
 
-                lstRegionDejaSkier.Add(region);
-                //if (!lstRegionDejaSkier.Contains(regions))
-                //{
-                //    lstRegionDejaSkier.Add(regions);
-                //    nombreDeDifferenteRegion++;
-                //}
-            }
-            foreach (Region region in lstRegionDejaSkier)
+            List<CentreDeSki> centresDejaVisite = new List<CentreDeSki>();
+
+            foreach (Saison sais in saisons)
             {
-                if (saison.Sorties.Where(r => r.CentreDeSki.Region == region).Count() != 0)
+                if (sais.Annee.Equals(saison.Annee))
+                    continue;
+                foreach (Sortie sort in sais.Sorties)
                 {
-                    nombreDeDifferenteRegion++;
+                    bool estDejaLa = false;
+
+                    foreach (CentreDeSki centre in centresDejaVisite)
+                    {
+                        if (centre.CentreDeSkiId == sort.CentreDeSkiId)
+                            estDejaLa = true;
+                    }
+
+                    if (!estDejaLa)
+                        centresDejaVisite.Add(sort.CentreDeSki);
+                    //if (!centresDejaVisite.Contains(sort.CentreDeSki))
+                    //    centresDejaVisite.Add(sort.CentreDeSki);
                 }
             }
+
+            foreach (Sortie sort in saison.Sorties)
+            {
+                bool estDejaLa = false;
+
+                foreach (CentreDeSki centre in centresDejaVisite)
+                {
+                    if (centre.CentreDeSkiId == sort.CentreDeSkiId)
+                        estDejaLa = true;
+                }
+
+                if (!estDejaLa)
+                {
+                    nombreDeDifferenteRegion++;
+                    centresDejaVisite.Add(sort.CentreDeSki);
+                }
+            }
+            //List<Region> lstRegionDejaSkier = new List<Region>();
+
+            //foreach (Region region in saison.Sorties.Select(r => r.CentreDeSki.Region))
+            //{
+
+            //    lstRegionDejaSkier.Add(region);
+            //    //if (!lstRegionDejaSkier.Contains(regions))
+            //    //{
+            //    //    lstRegionDejaSkier.Add(regions);
+            //    //    nombreDeDifferenteRegion++;
+            //    //}
+            //}
+            //foreach (Region region in lstRegionDejaSkier)
+            //{
+            //    if (saison.Sorties.Where(r => r.CentreDeSki.Region == region).Count() != 0)
+            //    {
+            //        nombreDeDifferenteRegion++;
+            //    }
+            //}
             return nombreDeDifferenteRegion;
         }
         public int ObtenirNombreDePiedsVerticaux(Saison saison)
         {
             int nombreDePiedsVerticaux = 0;
 
-            foreach (Descente descente in saison.Sorties.Select(r => r.Descentes))
+            foreach (Sortie sort in saison.Sorties)
             {
-                nombreDePiedsVerticaux += descente.PiedVerticauxParcourus;
+                foreach (Descente desc in sort.Descentes)
+                {
+                    nombreDePiedsVerticaux += desc.PiedVerticauxParcourus;
+                }
             }
 
             return nombreDePiedsVerticaux;
@@ -88,6 +133,19 @@ namespace SkiStatsAppV2.DAL
         {
             int nombreDeDescente = 0;
             nombreDeDescente = saison.Sorties.Select(r => r.Descentes).Count();
+            return nombreDeDescente;
+        }
+
+        public int ObtenirNombreDeDescente(Saison saison)
+        {
+            int nombreDeDescente = 0;
+            foreach (Sortie sort in saison.Sorties)
+            {
+                foreach (Descente desc in sort.Descentes)
+                {
+                    nombreDeDescente++;
+                }
+            }
             return nombreDeDescente;
         }
 
@@ -111,7 +169,7 @@ namespace SkiStatsAppV2.DAL
 
             decimal average = (decimal)nbrDescente / (decimal)nbrSorties;
 
-            return average;
+            return Math.Round(average, 2);
         }
 
         public decimal ObtenirAverageFeetPerDay(int? id)
@@ -136,7 +194,7 @@ namespace SkiStatsAppV2.DAL
 
             decimal average = (decimal)totalFeet / (decimal)nbrDays;
 
-            return average;
+            return Math.Round(average,2);
         }
 
         public decimal ObtenirAverageFeetPerRun(int? id)
@@ -161,7 +219,7 @@ namespace SkiStatsAppV2.DAL
 
             decimal average = (decimal)totalFeet / (decimal)nbrDescente;
 
-            return average;
+            return Math.Round(average,2);
         }
 
         public string ObtenirPremiereJourneeDeSki(int? id)
@@ -209,7 +267,7 @@ namespace SkiStatsAppV2.DAL
             if (premiere == null)
                 return null;
 
-            return minDate.Month.ToString("mmm") + " " + minDate.Day.ToString();
+            return minDate.ToString("MMM") + " " + minDate.Day.ToString();
         }
 
         public CentreDeSki FirstSkiArea(Saison Saison)
@@ -278,7 +336,7 @@ namespace SkiStatsAppV2.DAL
             }
 
             // retourne le jour de la semaine en string de cette derniere date 
-            string date = derniere.Date.Month.ToString("mmm") + " " + derniere.Date.Day.ToString("dd");
+            string date = derniere.Date.ToString("MMM") + " " + derniere.Date.Day.ToString();
 
             return date;
 
@@ -307,33 +365,30 @@ namespace SkiStatsAppV2.DAL
 
 
         }
-        public string LougueurSaison(Saison Saison)
+        public double LougueurSaison(Saison Saison)
         {
             TimeSpan duration;
 
             if (Saison.DateFin == null)
             {
                 duration = DateTime.Now - Saison.Annee;
-                return duration.TotalDays.ToString(); ;
+                return Math.Floor(duration.TotalDays);
             }
             else
             {
                 duration = Saison.DateFin.Value - Saison.Annee;
-                return duration.TotalDays.ToString();
+                return Math.Floor(duration.TotalDays);
             }
         }
 
-        public string moyenneDesJoursEntreDeuxSorties(Saison saison)
+        public double moyenneDesJoursEntreDeuxSorties(Saison saison)
         {
-            string result = "";
+            double result = 0;
 
             TimeSpan tempsEntre2Sortie;
 
             double total = 0;
             int nombreSortie = saison.Sorties.Count;
-
-
-            DateTime dateSortiePrecedante;
 
             List<Sortie> lstSortie = new List<Sortie>();
             foreach (Sortie item in saison.Sorties)
@@ -347,7 +402,7 @@ namespace SkiStatsAppV2.DAL
 
 
             }
-            result = Math.Round((total / nombreSortie), 2).ToString();
+            result = Math.Round((total / nombreSortie), 2);
 
             return result;
         }

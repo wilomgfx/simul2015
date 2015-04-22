@@ -40,8 +40,8 @@ namespace SkiStatsAppV2.ViewModels
         [DisplayName("Dernier centre de ski")]
         public CentreDeSki lastSkiArea { get; set; }
         [DisplayName("Nombre de jours dans cette saison")]
-        public int lengthOfSeason { get; set; }
+        public double lengthOfSeason { get; set; }
         [DisplayName("Moyenne de jours entre les sorties")]
-        public int avgElapsedDays { get; set; }
+        public double avgElapsedDays { get; set; }
     }
 }

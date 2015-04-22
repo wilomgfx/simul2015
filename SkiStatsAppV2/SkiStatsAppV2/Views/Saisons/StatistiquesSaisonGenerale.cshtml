@@ -1,0 +1,123 @@
+﻿@model SkiStatsAppV2.ViewModels.CollectionDeStats
+
+@{
+    ViewBag.Title = "Statistiques générales des saisons";
+}
+
+<h2>Statistiques générales des saisons</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Annee
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().nbrDaysSkiing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().nbrDifferentSkiAreas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().nbrNewSkiAreas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().nbrOfRuns)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().totalVerticalFeet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().avgRunsPerDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().avgFeetPerDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().avgFeetPerRun)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().firstDayOfSkiing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().firstDateOfSkiing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().firstSkiArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().lastDayOfSkiing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().lastDateOfSkiing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().lastSkiArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().lengthOfSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saisons.First().avgElapsedDays)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Saisons)
+    {
+        <tr>
+            <td>
+                @item.Saison.Annee.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @item.nbrDaysSkiing
+            </td>
+            <td>
+                @item.nbrDifferentSkiAreas
+            </td>
+            <td>
+                @item.nbrNewSkiAreas
+            </td>
+            <td>
+                @item.nbrOfRuns
+            </td>
+            <td>
+                @item.totalVerticalFeet
+            </td>
+            <td>
+                @item.avgRunsPerDay
+            </td>
+            <td>
+               @item.avgFeetPerDay
+            </td>
+            <td>
+                @item.avgFeetPerRun
+            </td>
+            <td>
+                @item.firstDayOfSkiing
+            </td>
+            <td>
+                @item.firstDateOfSkiing
+            </td>
+            <td>
+                @item.firstSkiArea.NomDuCentre
+            </td>
+            <td>
+               @item.lastDayOfSkiing
+            </td>
+            <td>
+                @item.lastDateOfSkiing
+            </td>
+            <td>
+                @item.lastSkiArea.NomDuCentre
+            </td>
+            <td>
+                @item.lengthOfSeason
+            </td>
+            <td>
+                @item.avgElapsedDays
+            </td>
+        </tr>
+    }
+</table>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
