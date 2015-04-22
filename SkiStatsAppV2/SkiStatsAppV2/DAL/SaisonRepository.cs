@@ -159,7 +159,8 @@ namespace SkiStatsAppV2.DAL
                     nbrDescente++;
                 }
             }
-
+            if (nbrSorties == 0)
+                return 0;
             decimal average = (decimal)nbrDescente / (decimal)nbrSorties;
 
             return Math.Round(average, 2);
@@ -184,7 +185,8 @@ namespace SkiStatsAppV2.DAL
             }
 
 
-
+            if (nbrDays == 0)
+                return 0;
             decimal average = (decimal)totalFeet / (decimal)nbrDays;
 
             return Math.Round(average,2);
@@ -209,7 +211,8 @@ namespace SkiStatsAppV2.DAL
             }
 
 
-
+            if (nbrDescente == 0)
+                return 0;
             decimal average = (decimal)totalFeet / (decimal)nbrDescente;
 
             return Math.Round(average,2);
@@ -388,9 +391,16 @@ namespace SkiStatsAppV2.DAL
             {
                 lstSortie.Add(item);
             }
-            for (int index = 0; index < lstSortie.Count - 1; index++)
+            IEnumerable<Sortie> colOrd = lstSortie.OrderByDescending(d => d.Date.Year).ThenByDescending(d => d.Date.Month).ThenByDescending(d => d.Date.Day);
+
+            List<Sortie> lstSortie2 = new List<Sortie>();
+            foreach (Sortie item in colOrd)
             {
-                tempsEntre2Sortie = lstSortie[index].Date - lstSortie[index + 1].Date;
+                lstSortie2.Add(item);
+            }
+            for (int index = 0; index < lstSortie2.Count - 1; index++)
+            {
+                tempsEntre2Sortie = lstSortie2[index].Date - lstSortie2[index + 1].Date;
                 total += tempsEntre2Sortie.TotalDays;
 
 
