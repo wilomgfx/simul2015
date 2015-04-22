@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Models\CentreDeSki.cs" />
     <Compile Include="Models\Descente.cs" />
+    <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Saison.cs" />
     <Compile Include="Models\Sortie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
