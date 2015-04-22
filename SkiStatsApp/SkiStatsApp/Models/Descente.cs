@@ -7,6 +7,7 @@ namespace SkiStatsApp.Models
 {
     public class Descente
     {
+        public int DescenteId { get; set; }
 
     }
 }
