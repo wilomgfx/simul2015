@@ -84,6 +84,12 @@ namespace SkiStatsAppV2.DAL
 
             return nombreDePiedsVerticaux;
         }
+        public int ObtenirNombreDeDescente(Saison saison)
+        {
+            int nombreDeDescente = 0;
+            nombreDeDescente = saison.Sorties.Select(r => r.Descentes).Count();
+            return nombreDeDescente;
+        }
 
         public decimal ObtenirAverageRunsPerDay(int? id)
         {
