@@ -13,12 +13,13 @@ namespace SkiStatsAppV2.Controllers
 {
     public class RegionsController : Controller
     {
-        private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
+        //private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
 
         // GET: Regions
         public ActionResult Index()
         {
-            return View(db.Regions.ToList());
+            return View(unitOfWork.RegionRepository.GetRegions());
         }
 
         // GET: Regions/Details/5
@@ -28,7 +29,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Region region = db.Regions.Find(id);
+            Region region = unitOfWork.RegionRepository.GetRegionByID(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,10 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Regions.Add(region);
-                db.SaveChanges();
+                //db.Regions.Add(region);
+                //db.SaveChanges();
+                unitOfWork.RegionRepository.InsertRegion(region);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +69,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Region region = db.Regions.Find(id);
+            Region region = unitOfWork.RegionRepository.GetRegionByID(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -83,8 +86,10 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(region).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(region).State = EntityState.Modified;
+                //db.SaveChanges();
+                unitOfWork.RegionRepository.UpdateRegion(region);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(region);
@@ -97,7 +102,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Region region = db.Regions.Find(id);
+            Region region = unitOfWork.RegionRepository.GetRegionByID(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,11 @@ namespace SkiStatsAppV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Region region = db.Regions.Find(id);
-            db.Regions.Remove(region);
-            db.SaveChanges();
+            Region region = unitOfWork.RegionRepository.GetRegionByID(id);
+            unitOfWork.RegionRepository.DeleteRegion(region);
+            unitOfWork.Save();
+            //db.Regions.Remove(region);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +127,8 @@ namespace SkiStatsAppV2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
