@@ -16,7 +16,7 @@ namespace SkiStatsApp.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            //Testing the locks
             return View();
         }
 
