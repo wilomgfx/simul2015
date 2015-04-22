@@ -8,7 +8,7 @@ namespace SkiStatsAppV2.DAL
 {
     public class RegionRepository : GenericRepository<Region>
     {
-        public RegionRepository(SkiStatsAppV2ContexteDbContext context) : base(context) { }
+        public RegionRepository(SkiStatsAppV2ContextDbContext context) : base(context) { }
 
         public IEnumerable<Region> GetRegions() { return Get(); }
 
