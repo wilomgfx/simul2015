@@ -12,6 +12,6 @@ namespace SkiStatsApp.Models
 
         private string Nom { get; set; }
 
-        public virtual ICollection<CentreDeSki> CentreDeSki { get; set; }
+        public virtual ICollection<CentreDeSki> CentreDeSkis { get; set; }
     }
 }
