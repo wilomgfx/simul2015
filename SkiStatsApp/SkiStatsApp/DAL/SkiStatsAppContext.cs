@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
-using SkiStatsApp.Models;
+
 
 
 namespace SkiStatsApp.DAL
 {
-<<<<<<< HEAD
-    public class SkiStatsAppContext:DbContext
+
+    public class SkiStatsAppContext : DbContext
     {
         public SkiStatsAppContext() : base() { }
 
@@ -25,11 +24,7 @@ namespace SkiStatsApp.DAL
         {
             base.OnModelCreating(modelBuilder);
         }
-    
-=======
-    public class SkiStatsAppContext : DbContext
-    {
 
->>>>>>> origin/master
     }
+    
 }
