@@ -124,7 +124,13 @@
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\SaisonsController.cs" />
     <Compile Include="Controllers\SortiesController.cs" />
+    <Compile Include="DAL\CentreDeSkiRepository.cs" />
+    <Compile Include="DAL\DescenteRepository.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IGenericRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\SkiStatsAppV2DbContext.cs" />
+    <Compile Include="DAL\SortieRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
