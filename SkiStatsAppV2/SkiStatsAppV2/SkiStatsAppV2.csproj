@@ -129,8 +129,11 @@
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\RegionRepository.cs" />
+    <Compile Include="DAL\SaisonRepository.cs" />
     <Compile Include="DAL\SkiStatsAppV2DbContext.cs" />
     <Compile Include="DAL\SortieRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
