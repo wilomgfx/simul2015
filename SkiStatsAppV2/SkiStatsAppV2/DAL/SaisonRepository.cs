@@ -208,11 +208,23 @@ namespace SkiStatsAppV2.DAL
 
         public CentreDeSki FirstSkiArea(Saison Saison)
         {
-            // retourne la premiere sortie de la saison donnée
-            Sortie premiereSortieSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.Annee).First();
+            Saison saison = Saison;
 
-            //retourne le premiere centre de ski de la saison donnée
-            return premiereSortieSaison.CentreDeSki;
+            IEnumerable<Sortie> lstSorties = saison.Sorties;
+
+            DateTime minDate = DateTime.Now;
+            Sortie premiere = null;
+
+            foreach (Sortie sort in lstSorties)
+            {
+                if (sort.Date < minDate)
+                {
+                    premiere = sort;
+                    minDate = sort.Date;
+                }
+            }
+
+            return premiere.CentreDeSki;
 
 
         }
@@ -220,20 +232,47 @@ namespace SkiStatsAppV2.DAL
         public string LastDaySkiingDD(Saison Saison)
         {
             // sort la derniere journee de ski de la saison donnée
-            Sortie derniereSortieDeLaSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+            Saison saison = Saison;
 
-            // retourne le jour de la semaine en string de cette derniere date 
-            return derniereSortieDeLaSaison.Date.DayOfWeek.ToString();
+            IEnumerable<Sortie> lstSorties = saison.Sorties;
+
+            DateTime maxDate = DateTime.MinValue;
+            Sortie derniere = null;
+
+            foreach (Sortie sort in lstSorties)
+            {
+                if (sort.Date > maxDate)
+                {
+                    derniere = sort;
+                    maxDate = sort.Date;
+                }
+            }
+
+            return derniere.Date.DayOfWeek.ToString();
 
         }
 
         public string LastDaySkiingMMdd(Saison Saison)
         {
             // sort la derniere journee de ski de la saison donnée
-            Sortie derniereSortieDeLaSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+            Saison saison = Saison;
+
+            IEnumerable<Sortie> lstSorties = saison.Sorties;
+
+            DateTime maxDate = DateTime.MinValue;
+            Sortie derniere = null;
+
+            foreach (Sortie sort in lstSorties)
+            {
+                if (sort.Date > maxDate)
+                {
+                    derniere = sort;
+                    maxDate = sort.Date;
+                }
+            }
 
             // retourne le jour de la semaine en string de cette derniere date 
-            string date = derniereSortieDeLaSaison.Date.Month.ToString("mmm") + " " + derniereSortieDeLaSaison.Date.Day.ToString("dd");
+            string date = derniere.Date.Month.ToString("mmm") + " " + derniere.Date.Day.ToString("dd");
 
             return date;
 
@@ -241,11 +280,24 @@ namespace SkiStatsAppV2.DAL
 
         public CentreDeSki LastSkiArea(Saison Saison)
         {
-            // retourne la derniere sortie de la saison donnée
-            Sortie derniereSortieSaison = unitOfWork.SortieRepository.ObtenirSortie().Where(d => d.Saison == Saison).Where(t => t.Date == Saison.DateFin).First();
+            // sort la derniere journee de ski de la saison donnée
+            Saison saison = Saison;
 
-            //retourne le derniere centre de ski de la saison donnée
-            return derniereSortieSaison.CentreDeSki;
+            IEnumerable<Sortie> lstSorties = saison.Sorties;
+
+            DateTime maxDate = DateTime.MinValue;
+            Sortie derniere = null;
+
+            foreach (Sortie sort in lstSorties)
+            {
+                if (sort.Date > maxDate)
+                {
+                    derniere = sort;
+                    maxDate = sort.Date;
+                }
+            }
+
+            return derniere.CentreDeSki;
 
 
         }
