@@ -13,12 +13,12 @@ namespace SkiStatsAppV2.Controllers
 {
     public class DescentesController : Controller
     {
-        private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
-
+        //private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: Descentes
         public ActionResult Index()
         {
-            var descentes = db.Descentes.Include(d => d.Sortie);
+            var descentes = unitOfWork.DescenteRepository.ObtenirDescente();
             return View(descentes.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Descente descente = db.Descentes.Find(id);
+            Descente descente = unitOfWork.DescenteRepository.ObtenirDescenteParID(id);
             if (descente == null)
             {
                 return HttpNotFound();
@@ -40,7 +40,7 @@ namespace SkiStatsAppV2.Controllers
         // GET: Descentes/Create
         public ActionResult Create()
         {
-            ViewBag.SortieId = new SelectList(db.Sorties, "SortieId", "SortieId");
+            ViewBag.SortieId = new SelectList(unitOfWork.SortieRepository.ObtenirSortie() , "SortieId", "SortieId");
             return View();
         }
 
@@ -53,12 +53,13 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Descentes.Add(descente);
-                db.SaveChanges();
+                unitOfWork.DescenteRepository.InsertDescente(descente);
+                unitOfWork.Save();
+               
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SortieId = new SelectList(db.Sorties, "SortieId", "SortieId", descente.SortieId);
+            ViewBag.SortieId = new SelectList(unitOfWork.SortieRepository.ObtenirSortie(), "SortieId", "SortieId", descente.SortieId);
             return View(descente);
         }
 
@@ -69,12 +70,12 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Descente descente = db.Descentes.Find(id);
+            Descente descente = unitOfWork.DescenteRepository.ObtenirDescenteParID(id);
             if (descente == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SortieId = new SelectList(db.Sorties, "SortieId", "SortieId", descente.SortieId);
+            ViewBag.SortieId = new SelectList(unitOfWork.SortieRepository.ObtenirSortie(), "SortieId", "SortieId", descente.SortieId);
             return View(descente);
         }
 
@@ -87,11 +88,12 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(descente).State = EntityState.Modified;
-                db.SaveChanges();
+               
+                unitOfWork.DescenteRepository.UpdateDescente(descente);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.SortieId = new SelectList(db.Sorties, "SortieId", "SortieId", descente.SortieId);
+            ViewBag.SortieId = new SelectList(unitOfWork.SortieRepository.ObtenirSortie(), "SortieId", "SortieId", descente.SortieId);
             return View(descente);
         }
 
@@ -102,7 +104,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Descente descente = db.Descentes.Find(id);
+            Descente descente = unitOfWork.DescenteRepository.ObtenirDescenteParID(id);
             if (descente == null)
             {
                 return HttpNotFound();
@@ -115,9 +117,9 @@ namespace SkiStatsAppV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Descente descente = db.Descentes.Find(id);
-            db.Descentes.Remove(descente);
-            db.SaveChanges();
+            Descente descente = unitOfWork.DescenteRepository.ObtenirDescenteParID(id);
+            unitOfWork.DescenteRepository.DeleteDescente(descente);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +127,7 @@ namespace SkiStatsAppV2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
