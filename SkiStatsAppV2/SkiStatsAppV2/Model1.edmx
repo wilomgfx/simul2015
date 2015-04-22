@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="H15_SIM_E03Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CentreDeSkis">
+          <Key>
+            <PropertyRef Name="CentreDeSkiId" />
+          </Key>
+          <Property Name="CentreDeSkiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomDuCentre" Type="nvarchar(max)" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descentes">
+          <Key>
+            <PropertyRef Name="DescenteId" />
+          </Key>
+          <Property Name="DescenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SortieId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Saisons">
+          <Key>
+            <PropertyRef Name="SaisonId" />
+          </Key>
+          <Property Name="SaisonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Annee" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sorties">
+          <Key>
+            <PropertyRef Name="SortieId" />
+          </Key>
+          <Property Name="SortieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaisonId" Type="int" Nullable="false" />
+          <Property Name="CentreDeSkiId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_CentreDeSkis_dbo_Regions_RegionId">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CentreDeSkis" Type="Self.CentreDeSkis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="CentreDeSkis">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Descentes_dbo_Sorties_SortieId">
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Descentes" Type="Self.Descentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sorties">
+              <PropertyRef Name="SortieId" />
+            </Principal>
+            <Dependent Role="Descentes">
+              <PropertyRef Name="SortieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId">
+          <End Role="CentreDeSkis" Type="Self.CentreDeSkis" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CentreDeSkis">
+              <PropertyRef Name="CentreDeSkiId" />
+            </Principal>
+            <Dependent Role="Sorties">
+              <PropertyRef Name="CentreDeSkiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sorties_dbo_Saisons_SaisonId">
+          <End Role="Saisons" Type="Self.Saisons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Saisons">
+              <PropertyRef Name="SaisonId" />
+            </Principal>
+            <Dependent Role="Sorties">
+              <PropertyRef Name="SaisonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="H15_SIM_E03ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CentreDeSkis" EntityType="Self.CentreDeSkis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descentes" EntityType="Self.Descentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saisons" EntityType="Self.Saisons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sorties" EntityType="Self.Sorties" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_CentreDeSkis_dbo_Regions_RegionId" Association="Self.FK_dbo_CentreDeSkis_dbo_Regions_RegionId">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="CentreDeSkis" EntitySet="CentreDeSkis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Descentes_dbo_Sorties_SortieId" Association="Self.FK_dbo_Descentes_dbo_Sorties_SortieId">
+            <End Role="Sorties" EntitySet="Sorties" />
+            <End Role="Descentes" EntitySet="Descentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId" Association="Self.FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId">
+            <End Role="CentreDeSkis" EntitySet="CentreDeSkis" />
+            <End Role="Sorties" EntitySet="Sorties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sorties_dbo_Saisons_SaisonId" Association="Self.FK_dbo_Sorties_dbo_Saisons_SaisonId">
+            <End Role="Saisons" EntitySet="Saisons" />
+            <End Role="Sorties" EntitySet="Sorties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="H15_SIM_E03Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CentreDeSkis">
+          <Key>
+            <PropertyRef Name="CentreDeSkiId" />
+          </Key>
+          <Property Name="CentreDeSkiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomDuCentre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Regions" Relationship="Self.FK_dbo_CentreDeSkis_dbo_Regions_RegionId" FromRole="CentreDeSkis" ToRole="Regions" />
+          <NavigationProperty Name="Sorties" Relationship="Self.FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId" FromRole="CentreDeSkis" ToRole="Sorties" />
+        </EntityType>
+        <EntityType Name="Descentes">
+          <Key>
+            <PropertyRef Name="DescenteId" />
+          </Key>
+          <Property Name="DescenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SortieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sorties" Relationship="Self.FK_dbo_Descentes_dbo_Sorties_SortieId" FromRole="Descentes" ToRole="Sorties" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CentreDeSkis" Relationship="Self.FK_dbo_CentreDeSkis_dbo_Regions_RegionId" FromRole="Regions" ToRole="CentreDeSkis" />
+        </EntityType>
+        <EntityType Name="Saisons">
+          <Key>
+            <PropertyRef Name="SaisonId" />
+          </Key>
+          <Property Name="SaisonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Annee" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Sorties" Relationship="Self.FK_dbo_Sorties_dbo_Saisons_SaisonId" FromRole="Saisons" ToRole="Sorties" />
+        </EntityType>
+        <EntityType Name="Sorties">
+          <Key>
+            <PropertyRef Name="SortieId" />
+          </Key>
+          <Property Name="SortieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaisonId" Type="Int32" Nullable="false" />
+          <Property Name="CentreDeSkiId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CentreDeSkis" Relationship="Self.FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId" FromRole="Sorties" ToRole="CentreDeSkis" />
+          <NavigationProperty Name="Descentes" Relationship="Self.FK_dbo_Descentes_dbo_Sorties_SortieId" FromRole="Sorties" ToRole="Descentes" />
+          <NavigationProperty Name="Saisons" Relationship="Self.FK_dbo_Sorties_dbo_Saisons_SaisonId" FromRole="Sorties" ToRole="Saisons" />
+        </EntityType>
+        <Association Name="FK_dbo_CentreDeSkis_dbo_Regions_RegionId">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CentreDeSkis" Type="Self.CentreDeSkis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="CentreDeSkis">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId">
+          <End Role="CentreDeSkis" Type="Self.CentreDeSkis" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CentreDeSkis">
+              <PropertyRef Name="CentreDeSkiId" />
+            </Principal>
+            <Dependent Role="Sorties">
+              <PropertyRef Name="CentreDeSkiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Descentes_dbo_Sorties_SortieId">
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Descentes" Type="Self.Descentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sorties">
+              <PropertyRef Name="SortieId" />
+            </Principal>
+            <Dependent Role="Descentes">
+              <PropertyRef Name="SortieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sorties_dbo_Saisons_SaisonId">
+          <End Role="Saisons" Type="Self.Saisons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sorties" Type="Self.Sorties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Saisons">
+              <PropertyRef Name="SaisonId" />
+            </Principal>
+            <Dependent Role="Sorties">
+              <PropertyRef Name="SaisonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="H15_SIM_E03Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="CentreDeSkis" EntityType="Self.CentreDeSkis" />
+          <EntitySet Name="Descentes" EntityType="Self.Descentes" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" />
+          <EntitySet Name="Saisons" EntityType="Self.Saisons" />
+          <EntitySet Name="Sorties" EntityType="Self.Sorties" />
+          <AssociationSet Name="FK_dbo_CentreDeSkis_dbo_Regions_RegionId" Association="Self.FK_dbo_CentreDeSkis_dbo_Regions_RegionId">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="CentreDeSkis" EntitySet="CentreDeSkis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId" Association="Self.FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId">
+            <End Role="CentreDeSkis" EntitySet="CentreDeSkis" />
+            <End Role="Sorties" EntitySet="Sorties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Descentes_dbo_Sorties_SortieId" Association="Self.FK_dbo_Descentes_dbo_Sorties_SortieId">
+            <End Role="Sorties" EntitySet="Sorties" />
+            <End Role="Descentes" EntitySet="Descentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sorties_dbo_Saisons_SaisonId" Association="Self.FK_dbo_Sorties_dbo_Saisons_SaisonId">
+            <End Role="Saisons" EntitySet="Saisons" />
+            <End Role="Sorties" EntitySet="Sorties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="H15_SIM_E03ModelStoreContainer" CdmEntityContainer="H15_SIM_E03Entities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CentreDeSkis">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.CentreDeSkis">
+              <MappingFragment StoreEntitySet="CentreDeSkis">
+                <ScalarProperty Name="CentreDeSkiId" ColumnName="CentreDeSkiId" />
+                <ScalarProperty Name="NomDuCentre" ColumnName="NomDuCentre" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descentes">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.Descentes">
+              <MappingFragment StoreEntitySet="Descentes">
+                <ScalarProperty Name="DescenteId" ColumnName="DescenteId" />
+                <ScalarProperty Name="SortieId" ColumnName="SortieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.Regions">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saisons">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.Saisons">
+              <MappingFragment StoreEntitySet="Saisons">
+                <ScalarProperty Name="SaisonId" ColumnName="SaisonId" />
+                <ScalarProperty Name="Annee" ColumnName="Annee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sorties">
+            <EntityTypeMapping TypeName="H15_SIM_E03Model.Sorties">
+              <MappingFragment StoreEntitySet="Sorties">
+                <ScalarProperty Name="SortieId" ColumnName="SortieId" />
+                <ScalarProperty Name="SaisonId" ColumnName="SaisonId" />
+                <ScalarProperty Name="CentreDeSkiId" ColumnName="CentreDeSkiId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

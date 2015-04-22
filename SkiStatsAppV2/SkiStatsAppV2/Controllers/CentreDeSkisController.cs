@@ -13,12 +13,15 @@ namespace SkiStatsAppV2.Controllers
 {
     public class CentreDeSkisController : Controller
     {
-        private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
+        //private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
+
+        private UnitOfWork uow = new UnitOfWork();
 
         // GET: CentreDeSkis
         public ActionResult Index()
         {
-            var centreDeSkis = db.CentreDeSkis.Include(c => c.Region);
+            //var centreDeSkis = db.CentreDeSkis.Include(c => c.Region);
+            var centreDeSkis = uow.CentreDeSkiRepository.ObtenirCentreDeSki();
             return View(centreDeSkis.ToList());
         }
 
@@ -29,7 +32,8 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            //CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            CentreDeSki centreDeSki = uow.CentreDeSkiRepository.ObtenirCentreDeSkiParID(id);
             if (centreDeSki == null)
             {
                 return HttpNotFound();
@@ -40,7 +44,7 @@ namespace SkiStatsAppV2.Controllers
         // GET: CentreDeSkis/Create
         public ActionResult Create()
         {
-            ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "Nom");
+            ViewBag.RegionId = new SelectList(uow.RegionRepository.GetRegions(), "RegionId", "Nom");
             return View();
         }
 
@@ -53,12 +57,14 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CentreDeSkis.Add(centreDeSki);
-                db.SaveChanges();
+                //db.CentreDeSkis.Add(centreDeSki);
+                //db.SaveChanges();
+                uow.CentreDeSkiRepository.Insert(centreDeSki);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "Nom", centreDeSki.RegionId);
+            ViewBag.RegionId = new SelectList(uow.RegionRepository.GetRegions(), "RegionId", "Nom", centreDeSki.RegionId);
             return View(centreDeSki);
         }
 
@@ -69,12 +75,13 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            //CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            CentreDeSki centreDeSki = uow.CentreDeSkiRepository.ObtenirCentreDeSkiParID(id);
             if (centreDeSki == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "Nom", centreDeSki.RegionId);
+            ViewBag.RegionId = new SelectList(uow.RegionRepository.GetRegions(), "RegionId", "Nom", centreDeSki.RegionId);
             return View(centreDeSki);
         }
 
@@ -87,11 +94,13 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(centreDeSki).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(centreDeSki).State = EntityState.Modified;
+                //db.SaveChanges();
+                uow.CentreDeSkiRepository.Update(centreDeSki);
+                uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "Nom", centreDeSki.RegionId);
+            ViewBag.RegionId = new SelectList(uow.RegionRepository.GetRegions(), "RegionId", "Nom", centreDeSki.RegionId);
             return View(centreDeSki);
         }
 
@@ -102,7 +111,8 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            //CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            CentreDeSki centreDeSki = uow.CentreDeSkiRepository.ObtenirCentreDeSkiParID(id);
             if (centreDeSki == null)
             {
                 return HttpNotFound();
@@ -115,9 +125,12 @@ namespace SkiStatsAppV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
-            db.CentreDeSkis.Remove(centreDeSki);
-            db.SaveChanges();
+            //CentreDeSki centreDeSki = db.CentreDeSkis.Find(id);
+            CentreDeSki centreDeSki = uow.CentreDeSkiRepository.ObtenirCentreDeSkiParID(id);
+            //db.CentreDeSkis.Remove(centreDeSki);
+            //db.SaveChanges();
+            uow.CentreDeSkiRepository.Delete(centreDeSki);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +138,7 @@ namespace SkiStatsAppV2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5320b3f9fd7f4b25b9b4a68215004796" Name="Diagram1">
+        <EntityTypeShape EntityType="H15_SIM_E03Model.C__MigrationHistory" Width="1.5" PointX="12.875" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="H15_SIM_E03Model.CentreDeSkis" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="H15_SIM_E03Model.Descentes" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="H15_SIM_E03Model.Regions" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="H15_SIM_E03Model.Saisons" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="H15_SIM_E03Model.Sorties" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="H15_SIM_E03Model.FK_dbo_CentreDeSkis_dbo_Regions_RegionId" ManuallyRouted="false" />
+        <AssociationConnector Association="H15_SIM_E03Model.FK_dbo_Sorties_dbo_CentreDeSkis_CentreDeSkiId" ManuallyRouted="false" />
+        <AssociationConnector Association="H15_SIM_E03Model.FK_dbo_Descentes_dbo_Sorties_SortieId" ManuallyRouted="false" />
+        <AssociationConnector Association="H15_SIM_E03Model.FK_dbo_Sorties_dbo_Saisons_SaisonId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
