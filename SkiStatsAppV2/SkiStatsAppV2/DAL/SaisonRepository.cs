@@ -249,5 +249,49 @@ namespace SkiStatsAppV2.DAL
 
 
         }
+        public string LougueurSaison(Saison Saison)
+        {
+            TimeSpan duration;
+
+            if (Saison.DateFin == null)
+            {
+                duration = DateTime.Now - Saison.Annee;
+                return duration.TotalDays.ToString(); ;
+            }
+            else
+            {
+                duration = Saison.DateFin.Value - Saison.Annee;
+                return duration.TotalDays.ToString();
+            }
+        }
+
+        public string moyenneDesJoursEntreDeuxSorties(Saison saison)
+        {
+            string result = "";
+
+            TimeSpan tempsEntre2Sortie;
+
+            double total = 0;
+            int nombreSortie = saison.Sorties.Count;
+
+
+            DateTime dateSortiePrecedante;
+
+            List<Sortie> lstSortie = new List<Sortie>();
+            foreach (Sortie item in saison.Sorties)
+            {
+                lstSortie.Add(item);
+            }
+            for (int index = 0; index < lstSortie.Count - 1; index++)
+            {
+                tempsEntre2Sortie = lstSortie[index].Date - lstSortie[index + 1].Date;
+                total += tempsEntre2Sortie.TotalDays;
+
+
+            }
+            result = Math.Round((total / nombreSortie), 2).ToString();
+
+            return result;
+        }
     }
 }
