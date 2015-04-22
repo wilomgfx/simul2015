@@ -13,12 +13,12 @@ namespace SkiStatsAppV2.Controllers
 {
     public class SaisonsController : Controller
     {
-        private SkiStatsAppV2ContextDbContext db = new SkiStatsAppV2ContextDbContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Saisons
         public ActionResult Index()
         {
-            return View(db.Saisons.ToList());
+            return View(unitOfWork.SaisonRepository.GetSaisons().ToList());
         }
 
         // GET: Saisons/Details/5
@@ -28,7 +28,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Saison saison = db.Saisons.Find(id);
+            Saison saison = unitOfWork.SaisonRepository.GetByID(id);
             if (saison == null)
             {
                 return HttpNotFound();
@@ -51,8 +51,8 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Saisons.Add(saison);
-                db.SaveChanges();
+                unitOfWork.SaisonRepository.Insert(saison);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +66,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Saison saison = db.Saisons.Find(id);
+            Saison saison = unitOfWork.SaisonRepository.GetByID(id);
             if (saison == null)
             {
                 return HttpNotFound();
@@ -83,8 +83,8 @@ namespace SkiStatsAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(saison).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.SaisonRepository.UpdateSaison(saison);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(saison);
@@ -97,7 +97,7 @@ namespace SkiStatsAppV2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Saison saison = db.Saisons.Find(id);
+            Saison saison = unitOfWork.SaisonRepository.GetByID(id);
             if (saison == null)
             {
                 return HttpNotFound();
@@ -110,9 +110,9 @@ namespace SkiStatsAppV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Saison saison = db.Saisons.Find(id);
-            db.Saisons.Remove(saison);
-            db.SaveChanges();
+            Saison saison = unitOfWork.SaisonRepository.GetByID(id);
+            unitOfWork.SaisonRepository.DeleteSaison(saison);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +120,7 @@ namespace SkiStatsAppV2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

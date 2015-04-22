@@ -20,6 +20,11 @@ namespace SkiStatsAppV2.Models
                 return GetByID(id);
             }
 
+            public IEnumerable<Sortie> ObtenirSortiesCompletes()
+            {
+                return Get(includeProperties: "CentreDeSki,Saison,Descentes");
+            }
+
             public void InsertDescente(Sortie Sortie) { Insert(Sortie); }
             public void DeleteDescente(Sortie Sortie) { Delete(Sortie); }
             public void UpdateDescente(Sortie Sortie) { Update(Sortie); }
